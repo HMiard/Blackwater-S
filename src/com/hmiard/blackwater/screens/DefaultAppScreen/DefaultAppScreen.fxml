@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Text?>
+
+<StackPane fx:id="defaultApp" prefHeight="700.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.hmiard.blackwater.screens.DefaultAppScreen.DefaultAppScreenPresenter">
+    <children>
+        <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="400.0">
+            <children>
+                <Text fill="#999999" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome !" StackPane.alignment="TOP_CENTER">
+                    <font>
+                        <Font name="Gill Sans MT" size="36.0" />
+                    </font>
+                    <StackPane.margin>
+                        <Insets top="20.0" />
+                    </StackPane.margin>
+                </Text>
+                <Text fill="#777777" strokeType="OUTSIDE" strokeWidth="0.0" text="No project is currently open.">
+                    <font>
+                        <Font name="Gill Sans MT" size="18.0" />
+                    </font>
+                </Text>
+                <Text fill="#777777" strokeType="OUTSIDE" strokeWidth="0.0" text="You can create a new project, or you can open an existing one using the &quot;Open&quot; button or the cog wheel icon in the &quot;My Projects&quot; panel." textAlignment="CENTER" wrappingWidth="300.0">
+                    <StackPane.margin>
+                        <Insets top="70.0" />
+                    </StackPane.margin>
+                    <font>
+                        <Font name="Gill Sans MT" size="14.0" />
+                    </font>
+                </Text>
+                <Button fx:id="defaultAppCloseButton" mnemonicParsing="false" text="x" StackPane.alignment="TOP_RIGHT">
+                    <font>
+                        <Font name="Coda" size="20.0" />
+                    </font>
+                </Button>
+            </children>
+        </StackPane>
+    </children>
+</StackPane>

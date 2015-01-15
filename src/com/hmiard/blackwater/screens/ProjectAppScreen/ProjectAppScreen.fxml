@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<StackPane fx:id="projectApp" prefHeight="700.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.hmiard.blackwater.screens.ProjectAppScreen.ProjectAppScreenPresenter">
+    <children>
+        <StackPane StackPane.alignment="TOP_CENTER">
+            <children>
+                <Text fx:id="projectAppName" fill="#999999" strokeType="OUTSIDE" strokeWidth="0.0" text="Project name" StackPane.alignment="TOP_CENTER">
+                    <font>
+                        <Font name="Gill Sans MT" size="36.0" />
+                    </font>
+                    <StackPane.margin>
+                        <Insets top="20.0" />
+                    </StackPane.margin>
+                </Text>
+                <Button fx:id="projectAppCloseButton" mnemonicParsing="false" text="x" StackPane.alignment="TOP_RIGHT">
+                    <font>
+                        <Font name="Coda" size="20.0" />
+                    </font>
+                </Button>
+            <ScrollPane fx:id="projectAppScrollPane" hbarPolicy="NEVER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="470.0" prefWidth="520.0" StackPane.alignment="BOTTOM_LEFT">
+               <content>
+                  <FlowPane fx:id="serversPanel" prefWidth="500.0" vgap="30.0" />
+               </content>
+               <StackPane.margin>
+                  <Insets bottom="20.0" left="20.0" />
+               </StackPane.margin>
+            </ScrollPane>
+            <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="240.0" StackPane.alignment="BOTTOM_RIGHT">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints maxHeight="275.0" minHeight="10.0" prefHeight="275.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="211.0" minHeight="10.0" prefHeight="153.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="72.0" minHeight="10.0" prefHeight="72.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <StackPane.margin>
+                  <Insets bottom="20.0" right="20.0" />
+               </StackPane.margin>
+               <children>
+                  <Button fx:id="projectAppRunAll" mnemonicParsing="false" styleClass="regularButton" text="          Run all the servers" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+                     <font>
+                        <Font name="Gill Sans MT" size="15.0" />
+                     </font>
+                     <GridPane.margin>
+                        <Insets top="30.0" />
+                     </GridPane.margin>
+                  </Button>
+                  <Button fx:id="projectAppCreateNew" mnemonicParsing="false" styleClass="regularButton" text="          Build a new server" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+                     <font>
+                        <Font name="Gill Sans MT" size="15.0" />
+                     </font>
+                     <GridPane.margin>
+                        <Insets top="150.0" />
+                     </GridPane.margin>
+                  </Button>
+                  <Button fx:id="projectAppServerCreateConfirm" mnemonicParsing="false" styleClass="regularButton" text="Create" textFill="#999999" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+                     <font>
+                        <Font name="Gill Sans MT" size="15.0" />
+                     </font>
+                     <GridPane.margin>
+                        <Insets right="88.0" top="230.0" />
+                     </GridPane.margin>
+                  </Button>
+                  <TextField fx:id="projectAppServerAsker" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="150.0" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+                     <GridPane.margin>
+                        <Insets top="190.0" />
+                     </GridPane.margin>
+                     <font>
+                        <Font name="Gill Sans MT" size="12.0" />
+                     </font>
+                     <padding>
+                        <Insets bottom="8.0" left="5.0" right="5.0" top="8.0" />
+                     </padding>
+                  </TextField>
+                  <Button fx:id="projectAppHaltAll" mnemonicParsing="false" styleClass="regularButton" text="         Stop all the servers" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+                     <font>
+                        <Font name="Gill Sans MT" size="15.0" />
+                     </font>
+                     <GridPane.margin>
+                        <Insets top="90.0" />
+                     </GridPane.margin>
+                  </Button>
+                  <Button fx:id="projectAppServerCreateCancel" mnemonicParsing="false" styleClass="regularButton" text="Cancel" textFill="#999999" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+                     <font>
+                        <Font name="Gill Sans MT" size="15.0" />
+                     </font>
+                     <GridPane.margin>
+                        <Insets left="88.0" top="230.0" />
+                     </GridPane.margin>
+                  </Button>
+                  <Button fx:id="projectAppGoToRoot" mnemonicParsing="false" styleClass="regularButton" text="        Go to project root" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                     <font>
+                        <Font name="Gill Sans MT" size="15.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="projectAppDelete" mnemonicParsing="false" styleClass="regularButton" text="             Delete a server" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
+                     <font>
+                        <Font name="Gill Sans MT" size="15.0" />
+                     </font>
+                     <GridPane.margin>
+                        <Insets top="30.0" />
+                     </GridPane.margin>
+                  </Button>
+                  <TextField fx:id="projectAppServerDeleteAsker" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="150.0" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
+                     <GridPane.margin>
+                        <Insets top="70.0" />
+                     </GridPane.margin>
+                     <padding>
+                        <Insets bottom="8.0" left="5.0" right="5.0" top="8.0" />
+                     </padding>
+                     <font>
+                        <Font name="Gill Sans MT" size="12.0" />
+                     </font>
+                  </TextField>
+                  <Button fx:id="projectAppServerDeleteConfirm" mnemonicParsing="false" styleClass="regularButton" text="Delete" textFill="#999999" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
+                     <font>
+                        <Font name="Gill Sans MT" size="15.0" />
+                     </font>
+                     <GridPane.margin>
+                        <Insets right="88.0" top="110.0" />
+                     </GridPane.margin>
+                  </Button>
+                  <Button fx:id="projectAppServerDeleteCancel" mnemonicParsing="false" styleClass="regularButton" text="Cancel" textFill="#999999" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
+                     <font>
+                        <Font name="Gill Sans MT" size="15.0" />
+                     </font>
+                     <GridPane.margin>
+                        <Insets left="88.0" top="110.0" />
+                     </GridPane.margin>
+                  </Button>
+               </children>
+            </GridPane>
+            </children>
+            <StackPane.margin>
+                <Insets />
+            </StackPane.margin>
+        </StackPane>
+    </children>
+</StackPane>

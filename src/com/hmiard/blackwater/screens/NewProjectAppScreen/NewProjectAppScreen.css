@@ -1,0 +1,46 @@
+#newProjectAppCloseButton {
+    -fx-background-color: transparent;
+    -fx-text-fill: #999;
+}
+
+
+#newProjectApp > * {
+    -fx-background-color: rgba(55, 55, 55, 0.30);
+    -fx-border-style: solid;
+    -fx-border-color: #777;
+}
+
+#newProjectBrowseButton, #newProjectGenerateButton {
+    -fx-background-color: rgba(55, 55, 55, 0.30);
+    -fx-border-style: solid;
+    -fx-border-color: #777;
+    -fx-text-fill: #aaaaaa;
+}
+
+.text-field:focused {
+    -fx-border-color: #4892CE;
+}
+
+#newProjectBrowseButton:hover, #newProjectGenerateButton:hover {
+    -fx-border-color: #4892CE;
+}
+
+#newProjectWizardConsole {
+    -fx-background-color: rgba(55, 55, 55, 0.50);
+    -fx-border-style: solid;
+    -fx-border-color: #777;
+    -fx-text-fill: #aaaaaa;
+}
+
+.text-area .scroll-pane {
+    -fx-background-color: transparent;
+}
+
+.text-area .scroll-pane .viewport{
+    -fx-background-color: transparent;
+}
+
+
+.text-area .scroll-pane .content{
+    -fx-background-color: transparent;
+}

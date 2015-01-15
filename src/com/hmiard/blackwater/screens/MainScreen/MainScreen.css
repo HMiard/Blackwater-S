@@ -1,0 +1,103 @@
+
+#container{
+    -fx-border-style: solid;
+    -fx-border-color: black;
+    -fx-background-image: url("../../content/img/splash.png");
+}
+
+#wrapper {
+    -fx-border-style: solid;
+    -fx-border-color: #777;
+    -fx-background-color: rgba(51, 51, 51, 0.25)
+}
+
+#topPanel {
+    -fx-background-color: rgba(55, 55, 55, 0.60);
+    -fx-border-style: solid;
+    -fx-border-color: #777;
+}
+
+#leftPanel {
+    -fx-background-color: rgba(55, 55, 55, 0.30);
+    -fx-border-style: solid;
+    -fx-border-color: #777;
+}
+
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-border-style: solid;
+    -fx-border-color: transparent;
+}
+
+.scroll-pane .viewport{
+    -fx-background-color: transparent;
+}
+
+
+.scroll-pane .content{
+    -fx-background-color: transparent;
+}
+
+.scroll-pane .scroll-bar {
+    -fx-background-color: transparent;
+}
+.scroll-pane .scroll-bar .thumb {
+    -fx-background-color: #555;
+}
+
+.scroll-pane .scroll-bar .increment-button:hover,
+.scroll-pane .scroll-bar .decrement-button:hover {
+    -fx-background-color: transparent;
+}
+
+#miniButton, #closeButton {
+    -fx-background-color: transparent;
+    -fx-text-fill: #999;
+}
+
+.button:hover {
+    -fx-cursor: hand;
+    -fx-text-fill: #4892CE!important;
+}
+
+#gitSyncButton, #phpSyncButton, #composerSyncButton {
+    -fx-background-color: transparent;
+    -fx-background-image: url('../../content/icons/synchronise.png');
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
+
+#gitSyncButton:hover, #phpSyncButton:hover, #composerSyncButton:hover {
+    -fx-background-image: url('../../content/icons/synchronise_blue.png');
+}
+
+#openProjectButton, #newProjectButton {
+    -fx-background-color: transparent;
+    -fx-text-fill: #777;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: left;
+}
+
+#newProjectButton {
+    -fx-background-image: url('../../content/icons/folder-plus.png');
+}
+#newProjectButton:hover {
+    -fx-background-image: url('../../content/icons/folder-plus-blue.png');
+}
+#openProjectButton {
+    -fx-background-image: url('../../content/icons/folder-open.png');
+}
+#openProjectButton:hover {
+    -fx-background-image: url('../../content/icons/folder-open-blue.png');
+}
+
+.text-field {
+    -fx-background-color: rgba(55, 55, 55, 0.30);
+    -fx-border-style: solid;
+    -fx-border-color: #777;
+    -fx-text-fill: #aaaaaa;
+}
+
+.text-field:focused {
+    -fx-border-color: #4892CE;
+}

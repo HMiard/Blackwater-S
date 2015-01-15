@@ -275,9 +275,9 @@
     <!-- Delete temporary files -->
     <delete dir="${artifacts.temp.dir}"/>
     <!-- Fancier build directory-->
-    <delete dir="Blackwater"/>
-    <mkdir dir="Blackwater"/>
-    <copy todir="Blackwater">
+    <delete dir="Blackwater-S"/>
+    <mkdir dir="Blackwater-S"/>
+    <copy todir="Blackwater-S">
       <fileset dir="${artifact.output.blackwater-s}"/>
     </copy>
   </target>
