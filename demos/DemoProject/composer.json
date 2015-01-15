@@ -1,0 +1,7 @@
+{
+    "autoload": {"psr-0": {
+        "AirServer": "src",
+        "ChatServer": "src"
+    }},
+    "require": {"blackwater/blackwaterp": "v0.1.3"}
+}
