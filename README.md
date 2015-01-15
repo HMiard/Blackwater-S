@@ -41,7 +41,7 @@ or you will need to adapt the source-code.
 to install IntelliJ and update the *idea.home* constant in the build.properties
 file, or download the javac2 jar and change the following line in the build.xml
 file :
-*<property name="javac2.home" value="${idea.home}/lib"/>*
+``<property name="javac2.home" value="${idea.home}/lib"/>``
 
 
 Quick documentation
