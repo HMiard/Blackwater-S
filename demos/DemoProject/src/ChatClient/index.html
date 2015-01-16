@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Blackwater Demo Project</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width"/>
+
+    <link href="chat.css" rel="stylesheet" type="text/css">
+
+</head>
+
+<body>
+
+    <div id="wrapper">
+        <div id="logo"><img src="resources/brand.png" alt="Blackwater" /></div>
+
+        <div id="chat">
+            <div id="connection_msg">Connection...</div>
+            <div id="rooms">
+                <h1>Rooms available :</h1>
+                <div class="roomButton" >Fancy room</div>
+                <div class="roomButton" >Trolls room</div>
+            </div>
+            <div id="get_name">
+                <input type="text" title="Write your name" id="name" placeholder="Write your name !"/>
+                <div class="roomButton" >OK</div>
+            </div>
+            <div id="content"></div>
+        </div>
+        <input type="text" title="Write something" id="writer" placeholder="Write something !"/>
+        <div class="roomButton" id="leaveButton">Leave</div>
+    </div>
+
+</body>
+
+<script src="lib/jquery-1.10.2.min.js"></script>
+<script src="chat.js"></script>
+
+</html>

@@ -2,7 +2,9 @@
 
 namespace ChatServer;
 
-use Blackwater\Servers\BlackwaterBasicServer;
+use Blackwater\Servers\NoDb\BlackwaterNoDbServer;
+use ChatServer\utils\ChatRoom;
+use ChatServer\utils\ChatUser;
 use Ratchet\ConnectionInterface;
 
 /**
@@ -12,8 +14,37 @@ use Ratchet\ConnectionInterface;
  * Class ChatServer
  * @package ChatServer
  */
-class ChatServer extends BlackwaterBasicServer
+class ChatServer extends BlackwaterNoDbServer
 {
+    protected $rooms;
+
+    /**
+     * Be careful if you override the constructor that
+     * it must take one argument and call it's parent constructor
+     * with that argument.
+     *
+     * @param $serverName
+     */
+    public function __construct($serverName)
+    {
+        parent::__construct($serverName);
+
+        $this->rooms = array(
+            "Fancy room" => new ChatRoom("Fancy room", $this),
+            "Trolls room" => new ChatRoom("Trolls room", $this)
+        );
+    }
+
+
+    /**
+     * When a new connection is opened it will be passed to this method
+     * @param  ConnectionInterface $conn The socket/connection that just connected to your application
+     */
+    function onOpen(ConnectionInterface $conn)
+    {
+        $this->attachUser(new ChatUser($conn, "defaultName"));
+    }
+
 
     /**
      * Triggered when a client sends data through the socket.
@@ -25,6 +56,98 @@ class ChatServer extends BlackwaterBasicServer
      */
     function onMessage(ConnectionInterface $from, $msg)
     {
-        // TODO: Implement onMessage() method.
+        $msg = json_decode($msg);
+        if ($msg === false || $msg == null){
+            $from->send("JSON message cannot be read !");
+            return;
+        }
+        $user = $this->getUserByConn($from);
+
+        /*
+         * The main switch, other implementations are possible but
+         * this is enough for such a simple server.
+         */
+        switch ($msg->{'action'}){
+
+            case "join": // An user is asking to join a room.
+                /**
+                 * @var ChatRoom $chatRoom
+                 */
+                $chatRoom = $this->rooms[$msg->{'room'}];
+                if ($chatRoom == null){
+                    $from->send("This room does not exist !");
+                    break;
+                }
+
+                $name = ($msg->{'name'} == null)? "defaultName" : $msg->{'name'};
+                $user->setName($name);
+
+                $chatRoom->connectUser($user);
+                break;
+
+            case "leave": // An user is asking to leave a room
+
+                $this->disconnectUserFromRooms($user);
+                break;
+
+
+            case "say": // An user is saying something
+
+                $said = $msg->{'content'};
+                $room = $user->getCurentRoom();
+                if ($room == null || $said == null) break;
+
+                $room->relay($user, $said);
+                break;
+        }
+    }
+
+    /**
+     * Quick handy method to disconnect an user from all the chat rooms.
+     *
+     * @param ChatUser $user
+     */
+    public function disconnectUserFromRooms(ChatUser $user){
+
+        /**
+         * @var ChatRoom $room
+         */
+        foreach ($this->rooms as $room){
+            $room->disconnectUser($user);
+        }
+    }
+
+    /**
+     * @param ConnectionInterface $conn
+     */
+    function onClose(ConnectionInterface $conn)
+    {
+        $user = $this->getUserByConn($conn);
+        if ($user !== false)
+            $this->disconnectUserFromRooms($user);
+            $this->detachUser($user);
+    }
+
+    /**
+     * @param ConnectionInterface $conn
+     * @param \Exception $e
+     */
+    function onError(ConnectionInterface $conn, \Exception $e)
+    {
+        $this->say("An error occured : {$e->getMessage()}");
+        $this->onClose($conn);
+        $conn->close();
+    }
+
+
+    /**
+     * Auto-completion trick.
+     *
+     * @param ConnectionInterface $conn
+     * @return ChatUser
+     */
+    public function getUserByConn(ConnectionInterface $conn){
+
+        return parent::getUserByConn($conn);
     }
 }

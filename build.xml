@@ -280,6 +280,7 @@
     <copy todir="Blackwater-S">
       <fileset dir="${artifact.output.blackwater-s}"/>
     </copy>
+    <delete dir="Blackwater-S/compilers"/>
   </target>
 
   <target name="all" depends="build.modules, build.all.artifacts" description="build all"/>

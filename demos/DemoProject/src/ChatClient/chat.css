@@ -1,0 +1,70 @@
+@font-face {
+    font-family: 'Gil-Sans-MT';
+    src: url('resources/Gil-Sans-MT.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    font-family: "Gil-Sans-MT", serif;
+    font-size: 17px;
+    color: #333;
+}
+
+#wrapper {
+    width: 100%;
+    max-width: 700px;
+    min-width: 300px;
+    margin-left: calc(50% - 350px);
+    margin-top: 40px;
+}
+
+#logo > img {
+    width: 100%;
+    height: auto;
+}
+
+#chat {
+    margin-top : 40px;
+    width: calc(100% - 40px);
+    height: 300px;
+    padding: 20px;
+    border: 1px solid #aaa;
+    overflow-y: auto;
+    overflow-x: hidden;
+    line-height: 25px;
+}
+
+#writer, #name {
+    margin-top: 40px;
+    width: calc(100% - 20px);
+    padding: 10px;
+    color: #333;
+    border: 1px solid #aaaaaa;
+}
+
+#get_name {
+    display: none;
+}
+
+#rooms {
+    display: none;
+}
+
+.roomButton {
+    margin: 10px 0;
+    padding: 10px 20px;
+    width: 150px;
+    border: 1px solid #2e92db;
+}
+
+.roomButton:hover {
+    border: 1px solid #21699d;
+    color: #21699d;
+    cursor: pointer;
+}
+
+#leaveButton {
+    margin-left: calc(50% - 75px);
+    text-align: center;
+}
