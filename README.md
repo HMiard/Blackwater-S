@@ -24,8 +24,14 @@ See Ratchet at <http://socketo.me/>
 Binary distributions
 ==============
 
+## Windows :
+<http://sourceforge.net/projects/blackwaters/files/Blackwater-S.zip/download>
+
+## Linux :
 *Coming soon*
 
+## Mac :
+*Coming soon*
 
 Building from source
 ==============
