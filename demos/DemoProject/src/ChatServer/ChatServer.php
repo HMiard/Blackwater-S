@@ -19,8 +19,8 @@ class ChatServer extends BlackwaterNoDbServer
     protected $rooms;
 
     /**
-     * Be careful if you override the constructor that
-     * it must take one argument and call it's parent constructor
+     * Be careful : if you override the constructor,
+     * it must take one argument and call its parent constructor
      * with that argument.
      *
      * @param $serverName
