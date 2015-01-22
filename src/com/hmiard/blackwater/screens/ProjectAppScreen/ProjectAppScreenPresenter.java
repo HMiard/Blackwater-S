@@ -10,6 +10,7 @@ import com.hmiard.blackwater.utils.ProjectApp;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.StackPane;
@@ -116,6 +117,27 @@ public class ProjectAppScreenPresenter extends ProjectApp implements Initializab
         loadedProject = project;
         projectAppName.setText(project.getName());
         reloadServers();
+
+        /*
+            Updates on first load only.
+         */
+        if (project.needUpdate){
+            project.needUpdate = false;
+            blockEverything(true);
+            ConsoleEmulator emulator = servers.get(0).console;
+
+            if (!servers.isEmpty())
+                new Thread(new ChildProcess(
+                        "php bin/composer.phar update",
+                        new File(loadedProject.getPath()),
+                        emulator,
+                        () -> Platform.runLater(() -> {
+                            blockEverything(false);
+                            emulator.push("\nDependencies successfully updated !\n");
+
+                        })
+                )).start();
+        }
     }
 
     /**
@@ -205,7 +227,7 @@ public class ProjectAppScreenPresenter extends ProjectApp implements Initializab
             s.launchButton.setDisable(true);
             s.launchButton.setOpacity(0.3);
             s.canBeLaunched = false;
-            new Thread(new ChildProcess("composer update", new File(loadedProject.getPath()), s.console, () -> Platform.runLater(() -> {
+            new Thread(new ChildProcess("php bin/composer.phar update", new File(loadedProject.getPath()), s.console, () -> Platform.runLater(() -> {
                 s.console.push("\nThe new server has been successfully created !\n");
                 s.launchButton.setDisable(false);
                 s.launchButton.setOpacity(0.7);
@@ -277,7 +299,7 @@ public class ProjectAppScreenPresenter extends ProjectApp implements Initializab
             s.launchButton.setDisable(true);
             s.launchButton.setOpacity(0.3);
             s.canBeLaunched = false;
-            new Thread(new ChildProcess("composer update", new File(loadedProject.getPath()), s.console, () -> Platform.runLater(() -> {
+            new Thread(new ChildProcess("php bin/composer.phar update", new File(loadedProject.getPath()), s.console, () -> Platform.runLater(() -> {
                 s.console.push("\nThe server has been successfully deleted !\n");
                 s.launchButton.setDisable(false);
                 s.launchButton.setOpacity(0.7);
@@ -359,6 +381,13 @@ public class ProjectAppScreenPresenter extends ProjectApp implements Initializab
     public void release() {
         projectAppCloseButton.setDisable(false);
         super.release();
+    }
+
+
+    public void blockEverything(Boolean block){
+
+        for (Node n : projectApp.getChildren())
+            n.setDisable(block);
     }
 
     @Override

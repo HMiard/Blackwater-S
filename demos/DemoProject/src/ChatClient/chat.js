@@ -3,6 +3,7 @@ $(document).ready( function(){
     var location = "localhost:8035";
     var user = new WebSocket("ws://"+location);
     var pickedRoom = "";
+    var inARoom = false;
 
     user.onopen = function(e){
         console.log("Connected successfully to "+location);
@@ -14,12 +15,10 @@ $(document).ready( function(){
     };
 
     user.onerror = function(e){
-        console.log("Server offline.");
-        serverOffline()
+        console.log("An error happened")
     };
 
     user.onclose = function(e){
-        console.log("Server offline.");
         serverOffline()
     };
 
@@ -30,7 +29,7 @@ $(document).ready( function(){
 
     document.onkeydown = function(e){
         // Pressed ENTER
-        if (e.keyCode == 13)
+        if (e.keyCode == 13 && inARoom)
             sendMsg()
     };
 
@@ -58,8 +57,7 @@ $(document).ready( function(){
         msg["room"] = pickedRoom;
 
         user.send(JSON.stringify(msg));
-        console.log(msg);
-        console.log(JSON.stringify(msg));
+        inARoom = true;
         $("#get_name").css({display:"none"});
     }
 
@@ -92,6 +90,7 @@ $(document).ready( function(){
         user.send(JSON.stringify(msg));
 
         $("#content").empty();
+        inARoom = false;
         connected();
     }
 
@@ -106,7 +105,12 @@ $(document).ready( function(){
     function serverOffline(){
 
         $("#chat").empty();
-        pushToChat("Server Offline.");
+        inARoom = false;
+        setTimeout(function(){
+            console.log("Server offline.");
+            $("#chat").append("Server offline.");
+        }, 500);
+
     }
 
 });

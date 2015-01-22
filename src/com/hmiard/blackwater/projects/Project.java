@@ -18,6 +18,7 @@ public class Project {
     private Date lastUpdate;
 
     public Properties tokens;
+    public Boolean needUpdate = true;
 
     public HashMap<String, ChildProcess> runningServers = new HashMap<>();
 

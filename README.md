@@ -47,4 +47,35 @@ or you will need to adapt the source-code.
 Quick documentation
 ==============
 
+## Running the demo
+
+Once you are able to run Blackwater-S, either from the source-built jar
+or from a binary distribution, click the "Open" button in the left panel.
+Navigate to the folder where Blackwater-S is installed and select the
+**demos/DemoProject** folder.
+
+Since you are loading the project for the first time, Blackwater-S will
+run *composer update*, disabling the project windows. Once the demo is
+successfully loaded, you should see something like this :
+
+![Demo-screen1](https://cloud.githubusercontent.com/assets/5138926/5860885/f809184e-a264-11e4-8239-531f5b6c4b06.png)
+
+Click on the airplane icon to launch the ChatServer. If everything is okay,
+the console should print something like
+*Blackwater > Chat server running on localhost, port 8035 !*
+
+Open then **DemoProject/src/ChatClient/index.html** in your favorite browser.
+If the server is still running, you'll see a basic chat application, asking
+you to chose a room and a name.
+If you open other instances of the client in your browser, and connect with
+different names, you'll be able to chat with yourself ! Wow.
+(Press return to send text).
+
+If you halt the server in Blackwater-S, using the cross icon or closing the
+window, you'll notice that all the clients are instantly disconnected from
+the application.
+
+
+## Creating a basic Blackwater Server
+
 *Coming soon*
