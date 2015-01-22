@@ -29,7 +29,7 @@ public class Start extends Application {
 
     public static final int V_WIDTH = 1024;
     public static final int V_HEIGHT = 700;
-    public static final String VERSION = "0.1.1";
+    public static final String VERSION = "0.1.2";
     public static final String footer = "Blackwater - GNU General Public License v3.0 - HMiard Build "+VERSION;
     public static final String blackwaterpVersion = "v0.1.3";
     public static String env;
