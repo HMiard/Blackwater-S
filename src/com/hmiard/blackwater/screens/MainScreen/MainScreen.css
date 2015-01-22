@@ -101,3 +101,25 @@
 .text-field:focused {
     -fx-border-color: #4892CE;
 }
+
+.check-box *.box {
+    -fx-background-color: transparent;
+    -fx-border-style: solid;
+    -fx-border-color: #777;
+}
+.check-box *.box:hover {
+    -fx-border-color: #4892CE;
+}
+.check-box .mark {
+    -fx-background-color: transparent;
+    -fx-background-insets: 1 0 -1 0, 0;
+    -fx-padding: 0.333333em;
+    -fx-shape: "M0,4H2L3,6L6,0H8L4,8H2Z";
+}
+.check-box:indeterminate .mark {
+    -fx-scale-shape: false;
+}
+
+.check-box:selected .mark {
+    -fx-background-color: #777;
+}

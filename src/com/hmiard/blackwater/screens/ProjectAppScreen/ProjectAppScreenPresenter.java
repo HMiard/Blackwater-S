@@ -10,10 +10,7 @@ import com.hmiard.blackwater.utils.ProjectApp;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
@@ -60,6 +57,8 @@ public class ProjectAppScreenPresenter extends ProjectApp implements Initializab
     public Button projectAppServerDeleteCancel;
     @FXML
     public ScrollPane projectAppScrollPane;
+    @FXML
+    public CheckBox projectAppServerCreateDB;
 
     ArrayList<ServerBlock> servers = new ArrayList<>();
 
@@ -78,6 +77,8 @@ public class ProjectAppScreenPresenter extends ProjectApp implements Initializab
         projectAppServerDeleteCancel.setDisable(true);
         projectAppServerDeleteCancel.setVisible(false);
         projectAppServerDeleteAsker.setVisible(false);
+        projectAppServerCreateDB.setVisible(false);
+        projectAppServerCreateDB.setDisable(true);
 
         projectAppCloseButton.setOnMouseClicked(e -> close());
         projectAppRunAll.setOnMouseClicked(e -> launchAllServers());
@@ -188,7 +189,10 @@ public class ProjectAppScreenPresenter extends ProjectApp implements Initializab
             projectAppServerAsker.setStyle("-fx-border-color: #777");
 
             ConsoleEmulator emulator = new ConsoleEmulator(new TextArea(), this);
-            Builder.appendServer(loadedProject.getPath(), serverName, emulator);
+            Builder.appendServer(
+                    loadedProject.getPath(), serverName, emulator,
+                    this.projectAppServerCreateDB.isSelected()
+            );
             try {
                 loadedProject.updateFields();
             } catch (ParseException e) {
@@ -219,6 +223,8 @@ public class ProjectAppScreenPresenter extends ProjectApp implements Initializab
         projectAppServerCreateConfirm.setVisible(display);
         projectAppServerCreateCancel.setDisable(!display);
         projectAppServerCreateCancel.setVisible(display);
+        projectAppServerCreateDB.setVisible(display);
+        projectAppServerCreateDB.setDisable(!display);
         projectAppServerAsker.setVisible(display);
         projectAppServerAsker.setText("");
         projectAppServerAsker.setStyle("-fx-border-color: #777");

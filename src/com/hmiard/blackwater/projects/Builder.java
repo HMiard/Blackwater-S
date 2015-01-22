@@ -41,12 +41,16 @@ public class Builder {
             buildFolder(projectUrl + "\\src");
             buildFolder(projectUrl + "\\.blackwater");
 
+            ArrayList<String> realServerNames = new ArrayList<>();
+            for (String name : serverNames)
+                    realServerNames.add(name.replace("!", ""));
+
             // Creating the configuration
             Properties configuration = new Properties();
             File tokens = new File (projectUrl + "\\.blackwater\\tokens.properties");
             configuration.setProperty("PATH", projectUrl);
             configuration.setProperty("NAME", projectName);
-            configuration.setProperty("SERVERS", Parser.parseArrayToStringList(",", serverNames));
+            configuration.setProperty("SERVERS", Parser.parseArrayToStringList(",", realServerNames));
             configuration.setProperty("LAST_UPDATE", new Date().toString());
             configuration.store(new FileOutputStream(tokens), "Blackwater build version : "+Start.VERSION);
             consoleListener.push("Tokens generated.\n");
@@ -78,7 +82,10 @@ public class Builder {
             // Creating the servers...
             consoleListener.push("Server creation started...\n");
             for (String name : serverNames)
-                appendServer(projectUrl, name, consoleListener);
+                if (name.charAt(0) == '!')
+                    appendServer(projectUrl, name.replace("!", ""), consoleListener, false);
+                else
+                    appendServer(projectUrl, name, consoleListener, true);
 
 
             // Copying composer.phar
@@ -108,8 +115,9 @@ public class Builder {
      * @param projectRoot String
      * @param serverName String
      * @param consoleListener ConsoleEmulator
+     * @param needsDb Boolean
      */
-    public static Boolean appendServer(String projectRoot, String serverName, ConsoleEmulator consoleListener){
+    public static Boolean appendServer(String projectRoot, String serverName, ConsoleEmulator consoleListener, Boolean needsDb){
 
         try {
             serverName = serverName.substring(0, 1).toUpperCase() + serverName.substring(1).toLowerCase();
@@ -128,7 +136,11 @@ public class Builder {
                 return false;
             }
 
-            copyFolder(new File("resources/packages/DefaultApp"), new File(src));
+            if (needsDb)
+                copyFolder(new File("resources/packages/DefaultApp"), new File(src));
+            else
+                copyFolder(new File("resources/packages/NoDbApp"), new File(src));
+
 
             FileOutputStream writer;
             File core = new File(src+"\\BlackwaterDefaultApp.php");
@@ -145,16 +157,19 @@ public class Builder {
                 writer.close();
             }
 
-            String qfContent = readFile(qf.getAbsolutePath());
-            qfContent = qfContent.replace("BlackwaterDefaultApp", serverName);
-            qfContent = qfContent.replace("DefaultApp", shortServerName);
-            File newQf = new File(src+"\\"+shortServerName+"QueryFactory.php");
-            if (newQf.createNewFile() && qf.delete()){
-                writer = new FileOutputStream(newQf);
-                writer.write(qfContent.getBytes());
-                writer.flush();
-                writer.close();
+            if (needsDb){
+                String qfContent = readFile(qf.getAbsolutePath());
+                qfContent = qfContent.replace("BlackwaterDefaultApp", serverName);
+                qfContent = qfContent.replace("DefaultApp", shortServerName);
+                File newQf = new File(src+"\\"+shortServerName+"QueryFactory.php");
+                if (newQf.createNewFile() && qf.delete()){
+                    writer = new FileOutputStream(newQf);
+                    writer.write(qfContent.getBytes());
+                    writer.flush();
+                    writer.close();
+                }
             }
+
 
             String bootsrapContent = readFile(bootstrap.getAbsolutePath());
             Random r = new Random();

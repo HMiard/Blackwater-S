@@ -107,8 +107,8 @@ public class NewProjectAppScreenPresenter extends BlackwaterApp implements Initi
 
         for (String s : serverNames){
             s = s.replaceAll("\\s", "");
-            if (!s.matches("[A-Za-z]+")){
-                Start.displayWarning("Please only enter only letters, and at least one !");
+            if (!s.matches("!*[A-Za-z]+")){
+                Start.displayWarning("Server names can only contain letters !");
                 newProjectServerNames.setStyle("-fx-border-color: darkred");
                 return;
             }
