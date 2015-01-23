@@ -364,10 +364,15 @@ public class ProjectAppScreenPresenter extends ProjectApp implements Initializab
      */
     public void scrollToServerBlock(ServerBlock serverBlock){
 
+        /**
+         * @todo That's not really working...
+         */
+        /*
         if (serverBlock == null) return;
         int index = servers.indexOf(serverBlock);
         if (index != -1)
             projectAppScrollPane.setVvalue((serverBlock.getHeight() + 30) * index);
+        */
     }
 
 
