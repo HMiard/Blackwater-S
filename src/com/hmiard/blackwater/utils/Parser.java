@@ -94,10 +94,9 @@ public class Parser {
 
         if (directory.exists() && directory.isDirectory()){
             File tokens = new File(directory.getAbsolutePath() + "\\.blackwater\\tokens.properties");
-            File composer = new File(directory.getAbsolutePath() + "\\composer.json");
             File composerArchive = new File(directory.getAbsolutePath() + "\\bin\\composer.phar");
 
-            if (tokens.exists() && composer.exists() && composerArchive.exists())
+            if (tokens.exists() && composerArchive.exists())
                 return true;
         }
 

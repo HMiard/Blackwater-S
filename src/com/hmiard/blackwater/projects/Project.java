@@ -163,27 +163,34 @@ public class Project {
         JSONObject require = new JSONObject();
 
         if (!composer.exists()){
+
+            if (!composer.createNewFile()) return;
             // Re-creating the file if necessary
             composerJSON.put("autoload", autoload);
             composerJSON.put("require", require);
 
             require.put("blackwater/blackwaterp", Start.blackwaterpVersion);
-            if (!composer.createNewFile()) return;
         }
         else{
             composerJSON = new JSONObject(Builder.readFile(composer.getAbsolutePath()));
             autoload = composerJSON.getJSONObject("autoload");
-            autoload.remove("psr-0");
+            psr0 = autoload.getJSONObject("psr-0");
         }
 
         for (String name : servers)
-            psr0.put(name+"Server", "src");
+            try{
+                psr0.get(name+"Server");
+            }catch (JSONException e){
+                psr0.put(name+"Server", "src");
+            }
+
         autoload.put("psr-0", psr0);
 
         BufferedWriter cw = new BufferedWriter(new FileWriter(composer.getAbsoluteFile()));
         String content = composerJSON.toString(4).replaceAll("\\\\", "");
         cw.write(content);
         cw.close();
+
     }
 
     public String getPath() {
