@@ -1,287 +1,234 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="blackwater-s" default="all">
 
+    <property name="jdk.home.1.8" location="${java.home}/.."/>
+    <property name="compiler.debug" value="on"/>
+    <property name="compiler.generate.no.warnings" value="off"/>
+    <property name="compiler.args" value=""/>
+    <property name="compiler.max.memory" value="700m"/>
+    <patternset id="ignored.files">
+        <exclude name="**/CVS/**"/>
+        <exclude name="**/SCCS/**"/>
+        <exclude name="**/RCS/**"/>
+        <exclude name="**/rcs/**"/>
+        <exclude name="**/.DS_Store/**"/>
+        <exclude name="**/.svn/**"/>
+        <exclude name="**/.pyc/**"/>
+        <exclude name="**/.pyo/**"/>
+        <exclude name="**/*.pyc/**"/>
+        <exclude name="**/*.pyo/**"/>
+        <exclude name="**/.git/**"/>
+        <exclude name="**/*.hprof/**"/>
+        <exclude name="**/_svn/**"/>
+        <exclude name="**/.hg/**"/>
+        <exclude name="**/*.lib/**"/>
+        <exclude name="**/*~/**"/>
+        <exclude name="**/__pycache__/**"/>
+        <exclude name="**/.bundle/**"/>
+        <exclude name="**/*.rbc/**"/>
+        <exclude name="**/vssver.scc/**"/>
+        <exclude name="**/vssver2.scc/**"/>
+    </patternset>
+    <patternset id="library.patterns">
+        <include name="*.war"/>
+        <include name="*.ear"/>
+        <include name="*.apk"/>
+        <include name="*.zip"/>
+        <include name="*.swc"/>
+        <include name="*.ane"/>
+        <include name="*.egg"/>
+        <include name="*.jar"/>
+    </patternset>
+    <patternset id="compiler.resources">
+        <exclude name="**/?*.java"/>
+        <exclude name="**/?*.form"/>
+        <exclude name="**/?*.class"/>
+        <exclude name="**/?*.groovy"/>
+        <exclude name="**/?*.scala"/>
+        <exclude name="**/?*.flex"/>
+        <exclude name="**/?*.kt"/>
+        <exclude name="**/?*.clj"/>
+    </patternset>
+    <!-- JDK definitions -->
+    <property name="jdk.bin.1.8" value="${jdk.home.1.8}/bin"/>
+    <path id="jdk.classpath.1.8">
+        <fileset dir="${jdk.home.1.8}">
+            <include name="jre/lib/charsets.jar"/>
+            <include name="jre/lib/deploy.jar"/>
+            <include name="jre/lib/javaws.jar"/>
+            <include name="jre/lib/jce.jar"/>
+            <include name="jre/lib/jfr.jar"/>
+            <include name="jre/lib/jfxswt.jar"/>
+            <include name="jre/lib/jsse.jar"/>
+            <include name="jre/lib/management-agent.jar"/>
+            <include name="jre/lib/plugin.jar"/>
+            <include name="jre/lib/resources.jar"/>
+            <include name="jre/lib/rt.jar"/>
+            <include name="jre/lib/ext/access-bridge-64.jar"/>
+            <include name="jre/lib/ext/cldrdata.jar"/>
+            <include name="jre/lib/ext/dnsns.jar"/>
+            <include name="jre/lib/ext/jaccess.jar"/>
+            <include name="jre/lib/ext/jfxrt.jar"/>
+            <include name="jre/lib/ext/localedata.jar"/>
+            <include name="jre/lib/ext/nashorn.jar"/>
+            <include name="jre/lib/ext/sunec.jar"/>
+            <include name="jre/lib/ext/sunjce_provider.jar"/>
+            <include name="jre/lib/ext/sunmscapi.jar"/>
+            <include name="jre/lib/ext/sunpkcs11.jar"/>
+            <include name="jre/lib/ext/zipfs.jar"/>
+        </fileset>
+    </path>
+    <property name="project.jdk.home" value="${jdk.home.1.8}"/>
+    <property name="project.jdk.bin" value="${jdk.bin.1.8}"/>
+    <property name="project.jdk.classpath" value="jdk.classpath.1.8"/>
+    <!-- Project Libraries -->
+    <path id="library.lib.classpath">
+        <fileset dir="${basedir}/resources/lib">
+            <patternset refid="library.patterns"/>
+        </fileset>
+    </path>
+    <!-- Register Custom Compiler Taskdefs -->
+    <property name="javac2.home" value="${basedir}/resources/compilers"/>
+    <path id="javac2.classpath">
+        <pathelement location="${javac2.home}/javac2.jar"/>
+        <pathelement location="${javac2.home}/jdom.jar"/>
+        <pathelement location="${javac2.home}/asm-all.jar"/>
+        <pathelement location="${javac2.home}/jgoodies-forms.jar"/>
+    </path>
+    <target name="register.custom.compilers">
+        <taskdef name="javac2" classname="com.intellij.ant.Javac2" classpathref="javac2.classpath"/>
+        <taskdef name="instrumentIdeaExtensions" classname="com.intellij.ant.InstrumentIdeaExtensions" classpathref="javac2.classpath"/>
+    </target>
+    <!-- Modules -->
+    <!-- Module Blackwater-S -->
+    <dirname property="module.blackwater-s.basedir" file="${ant.file}"/>
+    <property name="module.jdk.home.blackwater-s" value="${project.jdk.home}"/>
+    <property name="module.jdk.bin.blackwater-s" value="${project.jdk.bin}"/>
+    <property name="module.jdk.classpath.blackwater-s" value="${project.jdk.classpath}"/>
+    <property name="compiler.args.blackwater-s" value="-encoding UTF-8 -source 8 ${compiler.args}"/>
+    <property name="blackwater-s.output.dir" value="${module.blackwater-s.basedir}/dist/production/Blackwater-S"/>
+    <property name="blackwater-s.testoutput.dir" value="${module.blackwater-s.basedir}/dist/test/Blackwater-S"/>
+    <path id="blackwater-s.module.bootclasspath">
 
-  <property file="build.properties"/>
-  <!-- Uncomment the following property if no tests compilation is needed -->
-  <!--
-  <property name="skip.tests" value="true"/>
-   -->
-
-  <!-- Compiler options -->
-
-  <property name="compiler.debug" value="on"/>
-  <property name="compiler.generate.no.warnings" value="off"/>
-  <property name="compiler.args" value=""/>
-  <property name="compiler.max.memory" value="700m"/>
-  <patternset id="ignored.files">
-    <exclude name="**/CVS/**"/>
-    <exclude name="**/SCCS/**"/>
-    <exclude name="**/RCS/**"/>
-    <exclude name="**/rcs/**"/>
-    <exclude name="**/.DS_Store/**"/>
-    <exclude name="**/.svn/**"/>
-    <exclude name="**/.pyc/**"/>
-    <exclude name="**/.pyo/**"/>
-    <exclude name="**/*.pyc/**"/>
-    <exclude name="**/*.pyo/**"/>
-    <exclude name="**/.git/**"/>
-    <exclude name="**/*.hprof/**"/>
-    <exclude name="**/_svn/**"/>
-    <exclude name="**/.hg/**"/>
-    <exclude name="**/*.lib/**"/>
-    <exclude name="**/*~/**"/>
-    <exclude name="**/__pycache__/**"/>
-    <exclude name="**/.bundle/**"/>
-    <exclude name="**/*.rbc/**"/>
-    <exclude name="**/vssver.scc/**"/>
-    <exclude name="**/vssver2.scc/**"/>
-  </patternset>
-  <patternset id="library.patterns">
-    <include name="*.war"/>
-    <include name="*.ear"/>
-    <include name="*.apk"/>
-    <include name="*.zip"/>
-    <include name="*.swc"/>
-    <include name="*.ane"/>
-    <include name="*.egg"/>
-    <include name="*.jar"/>
-  </patternset>
-  <patternset id="compiler.resources">
-    <exclude name="**/?*.java"/>
-    <exclude name="**/?*.form"/>
-    <exclude name="**/?*.class"/>
-    <exclude name="**/?*.groovy"/>
-    <exclude name="**/?*.scala"/>
-    <exclude name="**/?*.flex"/>
-    <exclude name="**/?*.kt"/>
-    <exclude name="**/?*.clj"/>
-  </patternset>
-
-  <!-- JDK definitions -->
-
-  <property name="jdk.bin.1.8" value="${jdk.home.1.8}/bin"/>
-  <path id="jdk.classpath.1.8">
-    <fileset dir="${jdk.home.1.8}">
-      <include name="jre/lib/charsets.jar"/>
-      <include name="jre/lib/deploy.jar"/>
-      <include name="jre/lib/javaws.jar"/>
-      <include name="jre/lib/jce.jar"/>
-      <include name="jre/lib/jfr.jar"/>
-      <include name="jre/lib/jfxswt.jar"/>
-      <include name="jre/lib/jsse.jar"/>
-      <include name="jre/lib/management-agent.jar"/>
-      <include name="jre/lib/plugin.jar"/>
-      <include name="jre/lib/resources.jar"/>
-      <include name="jre/lib/rt.jar"/>
-      <include name="jre/lib/ext/access-bridge-64.jar"/>
-      <include name="jre/lib/ext/cldrdata.jar"/>
-      <include name="jre/lib/ext/dnsns.jar"/>
-      <include name="jre/lib/ext/jaccess.jar"/>
-      <include name="jre/lib/ext/jfxrt.jar"/>
-      <include name="jre/lib/ext/localedata.jar"/>
-      <include name="jre/lib/ext/nashorn.jar"/>
-      <include name="jre/lib/ext/sunec.jar"/>
-      <include name="jre/lib/ext/sunjce_provider.jar"/>
-      <include name="jre/lib/ext/sunmscapi.jar"/>
-      <include name="jre/lib/ext/sunpkcs11.jar"/>
-      <include name="jre/lib/ext/zipfs.jar"/>
-    </fileset>
-  </path>
-
-  <property name="project.jdk.home" value="${jdk.home.1.8}"/>
-  <property name="project.jdk.bin" value="${jdk.bin.1.8}"/>
-  <property name="project.jdk.classpath" value="jdk.classpath.1.8"/>
-
-
-  <!-- Project Libraries -->
-
-  <path id="library.lib.classpath">
-    <fileset dir="${basedir}/resources/lib">
-      <patternset refid="library.patterns"/>
-    </fileset>
-  </path>
-  <!-- Register Custom Compiler Taskdefs -->
-  <property name="javac2.home" value="${basedir}/resources/compilers"/>
-  <path id="javac2.classpath">
-    <pathelement location="${javac2.home}/javac2.jar"/>
-    <pathelement location="${javac2.home}/jdom.jar"/>
-    <pathelement location="${javac2.home}/asm-all.jar"/>
-    <pathelement location="${javac2.home}/jgoodies-forms.jar"/>
-  </path>
-  <target name="register.custom.compilers">
-    <taskdef name="javac2" classname="com.intellij.ant.Javac2" classpathref="javac2.classpath"/>
-    <taskdef name="instrumentIdeaExtensions" classname="com.intellij.ant.InstrumentIdeaExtensions" classpathref="javac2.classpath"/>
-  </target>
-
-  <!-- Modules -->
-
-
-  <!-- Module Blackwater-S -->
-
-  <dirname property="module.blackwater-s.basedir" file="${ant.file}"/>
-
-
-  <property name="module.jdk.home.blackwater-s" value="${project.jdk.home}"/>
-  <property name="module.jdk.bin.blackwater-s" value="${project.jdk.bin}"/>
-  <property name="module.jdk.classpath.blackwater-s" value="${project.jdk.classpath}"/>
-
-  <property name="compiler.args.blackwater-s" value="-encoding UTF-8 -source 8 ${compiler.args}"/>
-
-  <property name="blackwater-s.output.dir" value="${module.blackwater-s.basedir}/dist/production/Blackwater-S"/>
-  <property name="blackwater-s.testoutput.dir" value="${module.blackwater-s.basedir}/dist/test/Blackwater-S"/>
-
-  <path id="blackwater-s.module.bootclasspath">
-    <!-- Paths to be included in compilation bootclasspath -->
-  </path>
-
-  <path id="blackwater-s.module.production.classpath">
-    <path refid="${module.jdk.classpath.blackwater-s}"/>
-    <path refid="library.lib.classpath"/>
-  </path>
-
-  <path id="blackwater-s.runtime.production.module.classpath">
-    <pathelement location="${blackwater-s.output.dir}"/>
-    <path refid="library.lib.classpath"/>
-  </path>
-
-  <path id="blackwater-s.module.classpath">
-    <path refid="${module.jdk.classpath.blackwater-s}"/>
-    <pathelement location="${blackwater-s.output.dir}"/>
-    <path refid="library.lib.classpath"/>
-  </path>
-
-  <path id="blackwater-s.runtime.module.classpath">
-    <pathelement location="${blackwater-s.testoutput.dir}"/>
-    <pathelement location="${blackwater-s.output.dir}"/>
-    <path refid="library.lib.classpath"/>
-  </path>
-
-
-  <patternset id="excluded.from.module.blackwater-s">
-    <patternset refid="ignored.files"/>
-  </patternset>
-
-  <patternset id="excluded.from.compilation.blackwater-s">
-    <patternset refid="excluded.from.module.blackwater-s"/>
-  </patternset>
-
-  <path id="blackwater-s.module.sourcepath">
-    <dirset dir="${module.blackwater-s.basedir}">
-      <include name="src"/>
-      <include name="resources"/>
-    </dirset>
-  </path>
-
-
-  <target name="compile.module.blackwater-s" depends="compile.module.blackwater-s.production,compile.module.blackwater-s.tests" description="Compile module Blackwater-S"/>
-
-  <target name="compile.module.blackwater-s.production" depends="register.custom.compilers" description="Compile module Blackwater-S; production classes">
-    <mkdir dir="${blackwater-s.output.dir}"/>
-    <javac2 destdir="${blackwater-s.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.blackwater-s}/javac">
-      <compilerarg line="${compiler.args.blackwater-s}"/>
-      <bootclasspath refid="blackwater-s.module.bootclasspath"/>
-      <classpath refid="blackwater-s.module.production.classpath"/>
-      <src refid="blackwater-s.module.sourcepath"/>
-      <patternset refid="excluded.from.compilation.blackwater-s"/>
-    </javac2>
-
-    <copy todir="${blackwater-s.output.dir}">
-      <fileset dir="${module.blackwater-s.basedir}/src">
-        <patternset refid="compiler.resources"/>
-        <type type="file"/>
-      </fileset>
-      <fileset dir="${module.blackwater-s.basedir}/resources">
-        <patternset refid="compiler.resources"/>
-        <type type="file"/>
-      </fileset>
-    </copy>
-  </target>
-
-  <target name="compile.module.blackwater-s.tests" depends="register.custom.compilers,compile.module.blackwater-s.production" description="compile module Blackwater-S; test classes" unless="skip.tests"/>
-
-  <target name="clean.module.blackwater-s" description="cleanup module">
-    <delete dir="${blackwater-s.output.dir}"/>
-    <delete dir="${blackwater-s.testoutput.dir}"/>
-  </target>
-
-  <target name="init" description="Build initialization">
-    <!-- Perform any build initialization in this target -->
-  </target>
-
-  <target name="clean" depends="clean.module.blackwater-s, clean.artifact.blackwater-s" description="cleanup all"/>
-
-  <target name="build.modules" depends="init, clean, compile.module.blackwater-s" description="build all modules"/>
-
-  <target name="init.artifacts">
-    <property name="artifacts.temp.dir" value="${basedir}/__artifacts_temp"/>
-    <property name="artifact.output.blackwater-s" value="${basedir}/dist/artifacts/Blackwater_S"/>
-    <mkdir dir="${artifacts.temp.dir}"/>
-    <property name="artifact.temp.output.Blackwater" value="${artifacts.temp.dir}/Blackwater.jar"/>
-    <taskdef resource="com/sun/javafx/tools/ant/antlib.xml" uri="javafx:com.sun.javafx.tools.ant" classpath="${jdk.home.1.8}/lib/ant-javafx.jar"/>
-  </target>
-
-  <target name="clean.artifact.blackwater-s" description="clean Blackwater-S artifact output">
-    <delete dir="dist/artifacts"/>
-  </target>
-
-  <target name="artifact.blackwater-s" depends="init.artifacts, compile.module.blackwater-s"
-          description="Build &#39;Blackwater-S&#39; artifact" xmlns:fx="javafx:com.sun.javafx.tools.ant"
-          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="javafx:com.sun.javafx.tools.ant">
-    <mkdir dir="${artifact.output.blackwater-s}"/>
-    <copy todir="${artifact.temp.output.Blackwater}">
-      <fileset dir="${blackwater-s.output.dir}"/>
-    </copy>
-    <mkdir dir="${artifact.temp.output.Blackwater}/resources"/>
-    <copy todir="${artifact.temp.output.Blackwater}/resources">
-      <fileset dir="${basedir}/resources"/>
-    </copy>
-    <fx:fileset id="all_but_Blackwater" dir="${artifact.temp.output.Blackwater}" includes="**/*.jar">
-      <exclude name="Blackwater.jar"/>
-    </fx:fileset>
-    <fx:fileset id="all_Blackwater" dir="${artifact.temp.output.Blackwater}" includes="**/*.jar"/>
-    <fx:application id="Blackwater_id" name="Blackwater-S" mainClass="com.hmiard.blackwater.Start"/>
-    <fx:jar destfile="${artifact.temp.output.Blackwater}\Blackwater.jar">
-      <fx:application refid="Blackwater_id"/>
-      <fileset dir="${artifact.temp.output.Blackwater}" excludes="**/*.jar"/>
-      <fx:resources>
-        <fx:fileset refid="all_but_Blackwater"/>
-      </fx:resources>
-      <manifest/>
-    </fx:jar>
-    <fx:deploy width="1024" height="700" updatemode="background" outdir="${artifact.temp.output.Blackwater}\deploy"
-               outfile="Blackwater">
-      <fx:application refid="Blackwater_id"/>
-      <fx:info title="Blackwater" vendor="HMiard"
-               description="Blackwater Server Interface : cross-platform GUI for managing Ratchet PHP servers."/>
-      <fx:resources>
-        <fx:fileset refid="all_Blackwater"/>
-      </fx:resources>
-    </fx:deploy>
-    <copy todir="${artifact.output.blackwater-s}">
-      <fileset dir="${artifact.temp.output.Blackwater}/deploy"/>
-    </copy>
-    <copy todir="${artifact.output.blackwater-s}/resources">
-      <fileset dir="${artifact.temp.output.Blackwater}/resources"/>
-    </copy>
-    <delete includeemptydirs="true">
-      <fileset dir="${artifact.temp.output.Blackwater}"/>
-      <fileset dir="${artifact.output.blackwater-s}/lib"/>
-    </delete>
-  </target>
-
-  <target name="build.all.artifacts" depends="artifact.blackwater-s" description="Build all artifacts">
-
-    <!-- Delete temporary files -->
-    <delete dir="${artifacts.temp.dir}"/>
-    <!-- Fancier build directory-->
-    <delete dir="Blackwater-S"/>
-    <mkdir dir="Blackwater-S"/>
-    <copy todir="Blackwater-S">
-      <fileset dir="${artifact.output.blackwater-s}"/>
-    </copy>
-    <delete dir="Blackwater-S/compilers"/>
-  </target>
-
-  <target name="all" depends="build.modules, build.all.artifacts" description="build all"/>
+    </path>
+    <path id="blackwater-s.module.production.classpath">
+        <path refid="${module.jdk.classpath.blackwater-s}"/>
+        <path refid="library.lib.classpath"/>
+    </path>
+    <path id="blackwater-s.runtime.production.module.classpath">
+        <pathelement location="${blackwater-s.output.dir}"/>
+        <path refid="library.lib.classpath"/>
+    </path>
+    <path id="blackwater-s.module.classpath">
+        <path refid="${module.jdk.classpath.blackwater-s}"/>
+        <pathelement location="${blackwater-s.output.dir}"/>
+        <path refid="library.lib.classpath"/>
+    </path>
+    <path id="blackwater-s.runtime.module.classpath">
+        <pathelement location="${blackwater-s.testoutput.dir}"/>
+        <pathelement location="${blackwater-s.output.dir}"/>
+        <path refid="library.lib.classpath"/>
+    </path>
+    <patternset id="excluded.from.module.blackwater-s">
+        <patternset refid="ignored.files"/>
+    </patternset>
+    <patternset id="excluded.from.compilation.blackwater-s">
+        <patternset refid="excluded.from.module.blackwater-s"/>
+    </patternset>
+    <path id="blackwater-s.module.sourcepath">
+        <dirset dir="${module.blackwater-s.basedir}">
+            <include name="src"/>
+        </dirset>
+    </path>
+    <target name="compile.module.blackwater-s" depends="compile.module.blackwater-s.production,compile.module.blackwater-s.tests" description="Compile module Blackwater-S"/>
+    <target name="compile.module.blackwater-s.production" depends="register.custom.compilers" description="Compile module Blackwater-S; production classes">
+        <mkdir dir="${blackwater-s.output.dir}"/>
+        <javac2 destdir="${blackwater-s.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.blackwater-s}/javac">
+            <compilerarg line="${compiler.args.blackwater-s}"/>
+            <bootclasspath refid="blackwater-s.module.bootclasspath"/>
+            <classpath refid="blackwater-s.module.production.classpath"/>
+            <src refid="blackwater-s.module.sourcepath"/>
+        </javac2>
+        <copy todir="${blackwater-s.output.dir}">
+            <fileset dir="${module.blackwater-s.basedir}/src">
+                <patternset refid="compiler.resources"/>
+                <type type="file"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="compile.module.blackwater-s.tests" depends="register.custom.compilers,compile.module.blackwater-s.production" description="compile module Blackwater-S; test classes" unless="skip.tests"/>
+    <target name="clean.module.blackwater-s" description="cleanup module">
+        <delete dir="${blackwater-s.output.dir}"/>
+        <delete dir="${blackwater-s.testoutput.dir}"/>
+    </target>
+    <target name="init" description="Build initialization">
+        <!-- Perform any build initialization in this target -->
+    </target>
+    <target name="clean" depends="clean.module.blackwater-s, clean.artifact.blackwater-s" description="cleanup all"/>
+    <target name="build.modules" depends="init, clean, compile.module.blackwater-s" description="build all modules"/>
+    <target name="init.artifacts">
+        <property name="artifacts.temp.dir" value="${basedir}/__artifacts_temp"/>
+        <property name="artifact.output.blackwater-s" value="${basedir}/Blackwater-S"/>
+        <mkdir dir="${artifacts.temp.dir}"/>
+        <property name="artifact.temp.output.Blackwater" value="${artifacts.temp.dir}/Blackwater.jar"/>
+        <taskdef resource="com/sun/javafx/tools/ant/antlib.xml" uri="javafx:com.sun.javafx.tools.ant" classpath="${jdk.home.1.8}/lib/ant-javafx.jar"/>
+    </target>
+    <target name="clean.artifact.blackwater-s" description="clean Blackwater-S artifact output">
+        <delete dir="${artifact.output.blackwater-s}"/>
+    </target>
+    <target name="artifact.blackwater-s" depends="init.artifacts, compile.module.blackwater-s"
+            description="Build &#39;Blackwater-S&#39; artifact" xmlns:fx="javafx:com.sun.javafx.tools.ant"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="javafx:com.sun.javafx.tools.ant">
+        <mkdir dir="${artifact.output.blackwater-s}"/>
+        <copy todir="${artifact.temp.output.Blackwater}">
+            <fileset dir="${blackwater-s.output.dir}"/>
+        </copy>
+        <mkdir dir="${artifact.temp.output.Blackwater}/resources"/>
+        <copy todir="${artifact.temp.output.Blackwater}/resources">
+            <fileset dir="${basedir}/resources" excludes="**/compilers/**"/>
+        </copy>
+        <fx:fileset id="all_but_Blackwater" dir="${artifact.temp.output.Blackwater}" includes="**/*.jar">
+            <exclude name="Blackwater.jar"/>
+        </fx:fileset>
+        <fx:fileset id="all_Blackwater" dir="${artifact.temp.output.Blackwater}" includes="**/*.jar"/>
+        <fx:application id="Blackwater_id" name="Blackwater-S" mainClass="com.hmiard.blackwater.Start"/>
+        <fx:jar destfile="${artifact.temp.output.Blackwater}\Blackwater.jar">
+            <fx:application refid="Blackwater_id"/>
+            <fileset dir="${artifact.temp.output.Blackwater}" excludes="**/resources/**"/>
+            <fx:resources>
+                <fileset dir="${basedir}" includes="resources/lib/*.jar"/>
+            </fx:resources>
+            <manifest/>
+        </fx:jar>
+        <fx:deploy width="1024" height="700" updatemode="background" outdir="${artifact.temp.output.Blackwater}\deploy"
+                   outfile="Blackwater">
+            <fx:application refid="Blackwater_id"/>
+            <fx:info title="Blackwater" vendor="HMiard"
+                     description="Blackwater Server Interface : cross-platform GUI for managing Ratchet PHP servers."/>
+            <fx:resources>
+                <fx:fileset dir="${artifact.temp.output.Blackwater}">
+                    <include name="Blackwater.jar"/>
+                </fx:fileset>
+            </fx:resources>
+        </fx:deploy>
+        <fx:signjar destdir="${artifact.temp.output.Blackwater}"
+                    keyStore="cert" storePass="BlackwaterS"
+                    alias="Blackwater" keyPass="BlackwaterS">
+            <fileset dir='${artifact.temp.output.Blackwater}' includes="**/*.jar"/>
+        </fx:signjar>
+        <copy todir="${artifact.output.blackwater-s}">
+            <fileset dir="${artifact.temp.output.Blackwater}/deploy"/>
+        </copy>
+        <copy todir="${artifact.output.blackwater-s}/resources">
+            <fileset dir="${artifact.temp.output.Blackwater}/resources"/>
+        </copy>
+        <delete includeemptydirs="true">
+            <fileset dir="${artifact.temp.output.Blackwater}"/>
+        </delete>
+    </target>
+    <target name="build.all.artifacts" depends="artifact.blackwater-s" description="Build all artifacts">
+        <!-- Delete temporary files -->
+        <delete dir="${artifacts.temp.dir}"/>
+    </target>
+    <target name="all" depends="build.modules, build.all.artifacts" description="build all"/>
 </project>

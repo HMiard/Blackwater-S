@@ -1,3 +1,7 @@
+/*
+ * See Airhacks afterburner FXMLView
+ */
+
 package com.hmiard.blackwater.utils;
 
 import javafx.application.Platform;

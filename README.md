@@ -25,7 +25,7 @@ Binary distributions
 ==============
 
 ## Windows :
-<http://sourceforge.net/projects/blackwaters/files/Blackwater-S.zip/download>
+<https://sourceforge.net/projects/blackwaters/files/latest/download?source=files>
 
 ## Linux :
 *Coming soon*
@@ -38,10 +38,12 @@ Building from source
 
 In order to build Blackwater-S, install Apache Ant and run "ant" in the root of
 the cloned local repository.
+You may want to check the value of the property **"jdk.home.1.8"** in build.xml
+if you use a custom jdk installation.
 
 Building Blackwater-S from source will result in a folder containing
-resources and the bootstrap jar. Java 1.8.0_25 at least is needed,
-or you will need to adapt the source-code.
+resources and the bootstrap jar. Blackwater-S has been built with
+**Java 1.8.0_25**.
 
 
 Quick documentation
