@@ -68,13 +68,18 @@ public class Start extends Application {
 
         setEnv();
 
-        for (String f : fonts){
-            InputStream font = Start.class.getResourceAsStream("content/fonts/"+f);
-            if (font != null)
-                Font.loadFont(font, -1);
-            else
-                throw new FileNotFoundException(f+" font not found !");
+        try {
+            for (String f : fonts){
+                InputStream font = Start.class.getClassLoader().getResourceAsStream("content/fonts/" +f);
+                if (font != null)
+                    Font.loadFont(font, -1);
+                else
+                    throw new FileNotFoundException(f+" font not found !");
+            }
+        } catch (FileNotFoundException e){
+            System.out.println(e.getMessage());
         }
+
 
 
         /* SETTING THE WINDOW */
@@ -82,9 +87,9 @@ public class Start extends Application {
         this.mainScreen = new MainScreenView();
         Start.parser = new Parser();
 
-        mainW.setTitle("Santarena Air");
+        mainW.setTitle("Blackwater S");
         mainW.initStyle(StageStyle.UNDECORATED);
-        mainW.getIcons().add(new Image(Start.class.getResource("content/img/ico.png").toString()));
+        mainW.getIcons().add(new Image(Start.class.getClassLoader().getResourceAsStream("content/img/ico.png")));
 
         /* SETTING THE SCENE */
         mainW.setScene(new Scene(mainScreen.getView(), V_WIDTH, V_HEIGHT));

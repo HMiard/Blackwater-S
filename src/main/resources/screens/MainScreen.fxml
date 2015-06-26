@@ -8,29 +8,11 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<!--
-  ~ Blackwater-S - Server Interface
-  ~ Copyright (C) 2014-2015 Hugo MIARD
-  ~
-  ~ This program is free software: you can redistribute it and/or modify
-  ~ it under the terms of the GNU General Public License as published by
-  ~ the Free Software Foundation, either version 3 of the License, or
-  ~ (at your option) any later version.
-  ~
-  ~ This program is distributed in the hope that it will be useful,
-  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
-  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  ~ GNU General Public License for more details.
-  ~
-  ~ You should have received a copy of the GNU General Public License
-  ~ along with this program.  If not, see <http://www.gnu.org/licenses/>.
-  -->
-
 <StackPane fx:id="container" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.hmiard.blackwater.screens.MainScreen.MainScreenPresenter">
    <children>
       <ImageView opacity="0.30" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_RIGHT">
          <image>
-            <Image url="@../../content/img/logo.png" />
+            <Image url="@../content/img/logo.png" />
          </image>
          <StackPane.margin>
             <Insets right="265.0" top="100.0" />
@@ -75,7 +57,7 @@
                         </Button>
                         <ImageView fitHeight="110.0" fitWidth="370.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../content/img/brand.png" />
+                              <Image url="@../content/img/brand.png" />
                            </image>
                            <GridPane.margin>
                               <Insets left="10.0" top="2.0" />
@@ -91,7 +73,7 @@
                            <children>
                               <ImageView fitHeight="64.0" fitWidth="64.0" opacity="0.8" pickOnBounds="true" preserveRatio="true" StackPane.alignment="TOP_LEFT">
                                  <image>
-                                    <Image url="@../../content/icons/warning.png" />
+                                    <Image url="@../content/icons/warning.png" />
                                  </image>
                                  <StackPane.margin>
                                     <Insets top="15.0" />
@@ -163,7 +145,7 @@
                                     </Text>-->
                                     <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
                                        <image>
-                                          <Image url="@../../content/icons/php.png" />
+                                          <Image url="@../content/icons/php.png" />
                                        </image>
                                        <effect>
                                           <Glow level="0.2" />

@@ -72,7 +72,9 @@ public class ServerBlock extends StackPane {
         this.getChildren().add(serverName);
 
 
-        this.launchButton = new Button("", new ImageView(new Image(Start.class.getResource("content/icons/airplane.png").toString())));
+        this.launchButton = new Button("", new ImageView(new Image(getClass().getClassLoader().getResourceAsStream(
+                "content/icons/airplane.png"
+        ))));
         this.launchButton.setOpacity(0.7);
         setAlignment(launchButton, Pos.TOP_RIGHT);
         setMargin(launchButton, new Insets(0,10,0,0));
@@ -86,7 +88,9 @@ public class ServerBlock extends StackPane {
         this.getChildren().add(launchButton);
 
 
-        this.stopButton = new Button("", new ImageView(new Image(Start.class.getResource("content/icons/circle-remove.png").toString())));
+        this.stopButton = new Button("", new ImageView(new Image(getClass().getClassLoader().getResourceAsStream(
+                "content/icons/circle-remove.png"
+        ))));
         this.stopButton.setOpacity(0.3);
         this.stopButton.setDisable(true);
         setAlignment(stopButton, Pos.TOP_RIGHT);

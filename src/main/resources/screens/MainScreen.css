@@ -2,7 +2,7 @@
 #container{
     -fx-border-style: solid;
     -fx-border-color: black;
-    -fx-background-image: url("../../content/img/splash.png");
+    -fx-background-image: url("../content/img/splash.png");
 }
 
 #wrapper {
@@ -62,13 +62,13 @@
 
 #gitSyncButton, #phpSyncButton, #composerSyncButton {
     -fx-background-color: transparent;
-    -fx-background-image: url('../../content/icons/synchronise.png');
+    -fx-background-image: url('../content/icons/synchronise.png');
     -fx-background-repeat: no-repeat;
     -fx-background-position: center;
 }
 
 #gitSyncButton:hover, #phpSyncButton:hover, #composerSyncButton:hover {
-    -fx-background-image: url('../../content/icons/synchronise_blue.png');
+    -fx-background-image: url('../content/icons/synchronise_blue.png');
 }
 
 #openProjectButton, #newProjectButton {
@@ -79,16 +79,16 @@
 }
 
 #newProjectButton {
-    -fx-background-image: url('../../content/icons/folder-plus.png');
+    -fx-background-image: url('../content/icons/folder-plus.png');
 }
 #newProjectButton:hover {
-    -fx-background-image: url('../../content/icons/folder-plus-blue.png');
+    -fx-background-image: url('../content/icons/folder-plus-blue.png');
 }
 #openProjectButton {
-    -fx-background-image: url('../../content/icons/folder-open.png');
+    -fx-background-image: url('../content/icons/folder-open.png');
 }
 #openProjectButton:hover {
-    -fx-background-image: url('../../content/icons/folder-open-blue.png');
+    -fx-background-image: url('../content/icons/folder-open-blue.png');
 }
 
 .text-field {

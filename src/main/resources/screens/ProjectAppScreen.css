@@ -43,19 +43,19 @@
 }
 
 #projectAppRunAll {
-    -fx-background-image: url('../../content/icons/airplane.png');
+    -fx-background-image: url('../content/icons/airplane.png');
 }
 #projectAppCreateNew {
-    -fx-background-image: url('../../content/icons/circle-plus.png');
+    -fx-background-image: url('../content/icons/circle-plus.png');
 }
 #projectAppHaltAll {
-    -fx-background-image: url('../../content/icons/circle-remove.png');
+    -fx-background-image: url('../content/icons/circle-remove.png');
 }
 #projectAppDelete {
-    -fx-background-image: url('../../content/icons/folder-minus.png');
+    -fx-background-image: url('../content/icons/folder-minus.png');
 }
 #projectAppGoToRoot {
-    -fx-background-image: url('../../content/icons/folder-open.png');
+    -fx-background-image: url('../content/icons/folder-open.png');
 }
 
 #projectAppServerCreateConfirm, #projectAppServerCreateCancel,

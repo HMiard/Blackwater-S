@@ -71,12 +71,16 @@ public class ProjectBlock extends StackPane {
         setMargin(projectPath, new Insets(30,0,0,10));
         this.getChildren().add(projectPath);
 
-        this.openDirectory = new Button("", new ImageView(new Image(Start.class.getResource("content/icons/folder-open-mini.png").toString())));
+        this.openDirectory = new Button("", new ImageView(new Image(getClass().getClassLoader().getResourceAsStream(
+                "content/icons/folder-open-mini.png"
+        ))));
         setAlignment(openDirectory, Pos.CENTER_LEFT);
         setMargin(openDirectory, new Insets(-15,0,0,120));
         this.getChildren().add(openDirectory);
 
-        this.loadProject = new Button("", new ImageView(new Image(Start.class.getResource("content/icons/settings-mini.png").toString())));
+        this.loadProject = new Button("", new ImageView(new Image(getClass().getClassLoader().getResourceAsStream(
+                "content/icons/settings-mini.png"
+        ))));
         setAlignment(loadProject, Pos.CENTER_LEFT);
         setMargin(loadProject, new Insets(-15,0,0,150));
         this.getChildren().add(loadProject);

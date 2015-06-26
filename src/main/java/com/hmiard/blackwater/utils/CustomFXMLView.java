@@ -4,6 +4,7 @@
 
 package com.hmiard.blackwater.utils;
 
+import com.airhacks.afterburner.injection.Injector;
 import javafx.application.Platform;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -12,7 +13,8 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
-import com.airhacks.afterburner.injection.Injector;
+
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.MissingResourceException;
@@ -59,13 +61,14 @@ public class CustomFXMLView {
     }
     private void init(Class clazz, final String conventionalName) {
         this.presenterProperty = new SimpleObjectProperty<>();
-        this.resource = clazz.getResource(conventionalName);
+        this.resource = clazz.getClassLoader().getResource("screens/"+conventionalName);
         this.bundleName = getBundleName();
         this.bundle = getResourceBundle(bundleName);
     }
     FXMLLoader loadSynchronously(final URL resource, ResourceBundle bundle, final String conventionalName) throws IllegalStateException {
         final FXMLLoader loader = new FXMLLoader(resource, bundle);
         loader.setControllerFactory((Class<?> p) -> Injector.instantiatePresenter(p, this.injectionContext));
+
         try {
             loader.load();
         } catch (IOException ex) {
@@ -127,7 +130,7 @@ public class CustomFXMLView {
         return children.listIterator().next();
     }
     void addCSSIfAvailable(Parent parent) {
-        URL uri = getClass().getResource(getStyleSheetName());
+        URL uri = getClass().getClassLoader().getResource("screens/"+getStyleSheetName());
         if (uri == null) {
             return;
         }

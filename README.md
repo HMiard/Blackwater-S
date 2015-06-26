@@ -36,14 +36,16 @@ Binary distributions
 Building from source
 ==============
 
-In order to build Blackwater-S, install Apache Ant and run "ant" in the root of
-the cloned local repository.
-You may want to check the value of the property **"jdk.home.1.8"** in build.xml
-if you use a custom jdk installation.
+In order to build Blackwater-S, simply use the following command in the project
+root directory :
 
-Building Blackwater-S from source will result in a folder containing
-resources and the bootstrap jar. Blackwater-S has been built with
-**Java 1.8.0_25**.
+```bash
+gradle dist
+```
+
+The application will be located in build/distributions/Blackwater-S.
+NOTE : The installer will not install a working version of the application
+for now.
 
 
 Quick documentation
